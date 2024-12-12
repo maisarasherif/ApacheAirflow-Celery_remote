@@ -9,13 +9,13 @@
 
     - name: Clone repository if not present
       git:
-        repo: https://github.com/maisarasherif/Incident-Management.git  # Replace with your Git repo URL.
+        repo: #====================YOUR REPOSITORY LINK========================  # Replace with your Git repo URL.
         dest: /ansible/sync  # Target directory where the repo will be cloned.
         update: no  # Only clone if the repo is not already present.
 
     - name: Pull changes from the repository
       git:
-        repo: https://github.com/maisarasherif/Incident-Management.git  # Replace with your Git repo URL.
+        repo: #====================YOUR REPOSITORY LINK========================  # Replace with your Git repo URL.
         dest: /ansible/sync  # Pull changes into the target directory.
         update: yes  # Fetch updates from the repository if there are new changes.
         force: yes   #overwrite the local repo (old version) with the changes in the remote repo.
