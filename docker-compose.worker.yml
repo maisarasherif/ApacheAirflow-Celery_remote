@@ -1,27 +1,19 @@
 version: '3'
 services:
   airflow-worker-3:
-    image: ${AIRFLOW_IMAGE_NAME:-apache/airflow:2.5.1}
-    #user: "1000:1000"
+    image: apache/airflow:2.5.1
     tmpfs:
       - /opt/airflow/
-    #entrypoint: ["sh", "-c", "rm -f /airflow-worker/airflow-worker.pid && celery worker --pid /airflow-worker/airflow-worker.pid"]
-    command: celery worker #--pid=/opt/airflow/airflow-worker.pid #--hostname "worker-3@$${HOSTNAME}"
+    command: celery worker
     environment:
-      # AIRFLOW_UID: 50000
-      # AIRFLOW_GID: 50000
       AIRFLOW__CORE__EXECUTOR: CeleryExecutor
-      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@10.0.0.4:5432/airflow
-      AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:airflow@10.0.0.4:5432/airflow
-      AIRFLOW__CELERY__BROKER_URL: redis://:@10.0.0.4:6379/0
-      #AIRFLOW__CORE__FERNET_KEY: <your_fernet_key>
+      AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@<MAIN-NODE-PRIVATE-IP>:5432/airflow
+      AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:airflow@<MAIN-NODE-PRIVATE-IP>:5432/airflow
+      AIRFLOW__CELERY__BROKER_URL: redis://:@<MAIN-NODE-PRIVATE-IP>:6379/0
     volumes:
       - ./dags:/opt/airflow/dags
       - ./logs:/opt/airflow/logs
       - ./plugins:/opt/airflow/plugins
-
-    #hostname: ${HOSTNAME}
     ports:
       - 8793:8793
-    #command: celery worker
-    restart: always
+    restart: unless-stopped
