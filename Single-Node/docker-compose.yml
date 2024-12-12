@@ -32,6 +32,8 @@
           POSTGRES_USER: airflow
           POSTGRES_PASSWORD: airflow
           POSTGRES_DB: airflow
+        ports:
+          - 5432:5432
         volumes:
           - postgres-db-volume:/var/lib/postgresql/data
         healthcheck:
@@ -43,7 +45,7 @@
       redis:
         image: redis:latest
         ports:
-          - <private-ip>:6379:6379
+          - 6379:6379
         healthcheck:
           test: ["CMD", "redis-cli", "ping"]
           interval: 5s
