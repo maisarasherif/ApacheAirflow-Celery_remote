@@ -1,12 +1,12 @@
-# Base image
+
 FROM ubuntu:20.04
 
-# Install Ansible and Git
+
 RUN apt-get update && \
     apt-get install -y ansible git sshpass && \
     apt-get clean
 
-# Set working directory
+
 WORKDIR /ansible
 
 
