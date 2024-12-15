@@ -3,10 +3,10 @@ version: '3.8'
 services:
   ansible-sync:
     build:
-      context: .  # Build context is the current directory.
-      dockerfile: Dockerfile  # Dockerfile for building the image.
+      context: .  
+      dockerfile: Dockerfile  
     volumes:
-      - /home/azureuser/airflow/dags/:/ansible/sync  # Maps the host directory to the container directory.
+      - /home/azureuser/airflow/dags/:/ansible/sync  # Maps the dags directory in the host to the container directory where the repo is synced.
     environment:
       - ANSIBLE_HOST_KEY_CHECKING=False  # Disables host key checking for Ansible.
     entrypoint: >
